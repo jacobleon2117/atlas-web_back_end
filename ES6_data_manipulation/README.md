@@ -1,1 +1,1 @@
-ES6_data_manipulation
+ES6 Data Manipulation

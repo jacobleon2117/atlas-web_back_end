@@ -1,1 +1,1 @@
-ES6_classes
+ES6 Classes
