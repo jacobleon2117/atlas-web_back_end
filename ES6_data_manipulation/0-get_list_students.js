@@ -4,5 +4,6 @@ export default function getListStudents() {
   const s3 = { firstName: 'Serena', id: 5, location: 'San Francisco' };
 
   const studentArray = [s1, s2, s3];
+  
   return studentArray;
 }
