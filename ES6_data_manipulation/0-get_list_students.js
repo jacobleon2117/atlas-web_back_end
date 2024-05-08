@@ -5,5 +5,5 @@ export default function getListStudents() {
 
   const studentArray = [s1, s2, s3];
 
-return studentArray;
+  return studentArray;
 }
