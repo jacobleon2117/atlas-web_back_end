@@ -21,4 +21,5 @@ def task_wait_random(max_delay: int) -> asyncio.Task:
     Returns:
         asyncio.Task: The task representing the wait_random coroutine.
     """
-    return asyncio.create_task(task_wait_random(max_delay))
+    task = asyncio.create_task(task_wait_random(max_delay))
+    return task 
