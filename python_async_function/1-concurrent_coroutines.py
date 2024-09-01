@@ -7,7 +7,7 @@ Contains:
 """
 import asyncio
 import random
-from typing import List 
+from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
@@ -24,6 +24,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     delays = []
     async def add_delay():
+
         delay = await wait_random(max_delay)
         for i, existing_delay in enumerate(delays):
             if delay < existing_delay:
