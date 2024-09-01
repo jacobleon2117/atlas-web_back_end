@@ -4,8 +4,8 @@ Asyncio utilities for creating asynchronous coroutines.
 
 This module contains utility functions for creating asynchronous coroutines.
 """
-import asyncio
 import random
+import asyncio
 
 
 async def wait_random(max_delay: float = 10.0) -> float:
