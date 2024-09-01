@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Provides a function to create an asyncio Task for wait_random.
 
 Contains:
     task_wait_random: Function to create and return an asyncio Task.
 """
-
-
 import asyncio
 import random
 from typing import List

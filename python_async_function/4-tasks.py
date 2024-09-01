@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Provides a function to spawn multiple tasks for random delays.
 
 Contains:
     task_wait_n: Function to generate n random delays using tasks.
 """
-
-
 import asyncio
 import random
 from typing import List

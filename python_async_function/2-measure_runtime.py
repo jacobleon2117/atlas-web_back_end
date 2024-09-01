@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Measures the execution time of the wait_n function.
 
 Contains:
     measure_time: Function to measure the average time for wait_n execution.
 """
-
-
 import asyncio
 import random
 import time

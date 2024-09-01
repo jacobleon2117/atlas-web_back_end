@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module provides a function to create a tuple containing 
 a string and the square of a number.

@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Provides an asynchronous generator to yield random numbers.
 
 Contains:
     async_generator: Coroutine to yield random numbers with a 1-second delay.
 """
-
 import asyncio
 import random
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module provides a function to calculate the sum of a 
 list containing integers and floats.

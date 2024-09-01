@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-
 """
 Asyncio utilities for creating asynchronous coroutines.
 
 This module contains utility functions for creating asynchronous coroutines.
 """
-
-
 import asyncio
 import random
 
@@ -24,11 +21,7 @@ async def wait_random(max_delay: float = 10.0) -> float:
     Raises:
         ValueError: If max_delay is negative
     """
-    if max_delay < 0:
-        raise ValueError("max_delay must be a non-negative float")
 
-    delay = random.uniform(0, max_delay)
-    
-    await asyncio.sleep(delay)
-    
-    return delay
+    rand: float = random.uniform(0, max_delay)
+    await asyncio.sleep(rand)
+    return rand

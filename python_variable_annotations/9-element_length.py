@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-
-from typing import List, Tuple
-
-
 """
 Module-level docstring: This module contains utility functions 
 for working with lists of strings.
 """
+from typing import List, Tuple
+
 
 def element_length(lst: List[str]) -> List[Tuple[str, int]]:
     """

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 Provides a coroutine to measure the runtime of async_comprehension.
 
@@ -7,7 +6,6 @@ Contains:
     measure_runtime: Coroutine to execute async_comprehension four times in parallel
     and measure the total runtime.
 """
-
 import asyncio
 import time
 from typing import List 

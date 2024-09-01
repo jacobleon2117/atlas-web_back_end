@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 """
 Provides an async function to spawn multiple random delays.
 
 Contains:
     wait_n: Async function to generate n random delays.
 """
-
-
 import asyncio
 import random
 from typing import List 
