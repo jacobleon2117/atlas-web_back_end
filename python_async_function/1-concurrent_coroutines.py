@@ -23,8 +23,8 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         List[float]: List of delays in ascending order.
     """
     delays = []
-    async def add_delay ():
-
+    
+    async def add_delay(): 
         delay = await wait_random(max_delay)
         for i, existing_delay in enumerate(delays):
             if delay < existing_delay:
