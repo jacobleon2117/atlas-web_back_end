@@ -7,9 +7,10 @@ Contains:
 """
 import asyncio
 import random
-from typing import Generator
+from typing import AsyncGenerator
 
-async def async_generator():
+
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     Asynchronous generator that yields random numbers between 0 and 10
     with a 1-second delay between each yield.
@@ -19,4 +20,4 @@ async def async_generator():
     """
     for _ in range(10):
         await asyncio.sleep(1)
-        yield random.randint(0, 10) 
+        yield random.uniform(0, 10) 
