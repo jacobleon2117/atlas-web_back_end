@@ -7,8 +7,8 @@ Contains:
     and measure the total runtime.
 """
 import asyncio
+import random
 import time
-from typing import List 
 async_comprehension = __import__('1-async_comprehension.py.py').async_comprehension
 
 
