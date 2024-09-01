@@ -5,8 +5,8 @@ Provides a function to create an asyncio Task for wait_random.
 Contains:
     task_wait_random: Function to create and return an asyncio Task.
 """
-import asyncio
 import random
+import asyncio
 from typing import List
 wait_random = __import__('0-basic_async_syntax.py').wait_random
 
