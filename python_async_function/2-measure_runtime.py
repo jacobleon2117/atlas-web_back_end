@@ -7,11 +7,13 @@ Contains:
     measure_time: Function to measure the average time for wait_n execution.
 """
 
+
 import asyncio
 import random
 import time
 from typing import List
 wait_n = __import__('1-concurrent_coroutines').wait_n
+
 
 def measure_time(n: int, max_delay: int) -> float:
     """
