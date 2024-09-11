@@ -6,7 +6,8 @@ BasicCache module
 from base_caching import BaseCaching
 
 class BasicCache(BaseCaching):
-    """BasicCache inherits from BaseCaching and implements a basic caching system"""
+    """BasicCache inherits from BaseCaching and 
+    implements a basic caching system"""
 
     def __init__(self):
         """
