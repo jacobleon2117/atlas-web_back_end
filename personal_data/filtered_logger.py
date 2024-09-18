@@ -6,6 +6,8 @@
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
 
 
 PII_FIELDS = (
@@ -89,3 +91,42 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
     
     return logger
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+
+    db_user = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    db_password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    db_host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+
+    connection = mysql.connector.connect(
+        user=db_user,
+        password=db_password,
+        host=db_host,
+        database=db_name
+    )
+
+    return connection
+
+def main() -> None:
+    """
+        Retrieves all rows from the 'users'
+        table and displays each row with PII fields redacted.
+    """
+    connection = get_db()
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users")
+        rows = cursor.fetchall()
+
+        logger = get_logger()
+
+        for row in rows:
+            log_message = '; '.join(f"{key}={value}" for key, value in row.items())
+            logger.info(log_message)
+    finally:
+        connection.close()
+
+if __name__ == "__main__":
+    main()
