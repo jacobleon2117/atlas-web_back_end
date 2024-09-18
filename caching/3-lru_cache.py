@@ -5,13 +5,13 @@ from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """ 
+    """
         LRUCache implements a caching system with
         the Least Recently Used (LRU) algorithm.
     """
 
     def __init__(self):
-        """ 
+        """
             Initialize the LRUCache class with
             a list to track the order of usage.
         """
@@ -19,7 +19,7 @@ class LRUCache(BaseCaching):
         self.lru_order = []
 
     def put(self, key, item):
-        """ 
+        """
             Add an item to the cache using the LRU algorithm.
             If the cache exceeds the MAX_ITEMS,
             discard the least recently used item.
