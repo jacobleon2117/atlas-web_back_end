@@ -39,15 +39,19 @@ class Server:
         """
         if self.__indexed_dataset is None:
             dataset = self.dataset()
-            self.__indexed_dataset = {i: dataset[i] for i in range(len(dataset))}
+            self.__indexed_dataset = {
+                i: value for i, value in enumerate(dataset)
+            }
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
             Deletion-resilient hypermedia pagination method.
         """
-        assert isinstance(index, int) and index >= 0, "Index must be a positive integer"
-        assert isinstance(page_size, int) and page_size > 0, "Page size must be a positive integer"
+        assert isinstance(index, int) and index >= 0, (
+        )
+        assert isinstance(page_size, int) and page_size > 0, (
+        )
 
         indexed_data = self.indexed_dataset()
         dataset_size = len(indexed_data)
