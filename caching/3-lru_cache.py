@@ -1,45 +1,53 @@
 #!/usr/bin/python3
-"""
-LIFOCache module - caching system using LIFO
-(Last In First Out) algorithm.
-"""
+""" LRUCache - module that inherits from BaseCaching """
 
 from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCaching):
-    """ LIFO caching system """
+class LRUCache(BaseCaching):
+    """ 
+        LRUCache implements a caching system with
+        the Least Recently Used (LRU) algorithm.
+    """
 
     def __init__(self):
-        """ Initialize the class with an empty
-        cache and track insertion order.
+        """ 
+            Initialize the LRUCache class with
+            a list to track the order of usage.
         """
         super().__init__()
-        self.order = []
+        self.lru_order = []
 
     def put(self, key, item):
-        """
-        Add an item to the cache.
-        If the cache exceeds the limit, discard
-        the most recently added item (LIFO).
+        """ 
+            Add an item to the cache using the LRU algorithm.
+            If the cache exceeds the MAX_ITEMS,
+            discard the least recently used item.
         """
         if key is None or item is None:
             return
 
         if key in self.cache_data:
-            self.cache_data[key] = item
-            return
-
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            last_key = self.order.pop()
-            del self.cache_data[last_key]
-            print(f"DISCARD: {last_key}")
+            self.lru_order.remove(key)
 
         self.cache_data[key] = item
-        self.order.append(key)
+        self.lru_order.append(key)
+
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            lru_key = self.lru_order.pop(0)
+            del self.cache_data[lru_key]
+            print(f"DISCARD: {lru_key}")
 
     def get(self, key):
-        """ Return the value in the cache linked
-        to key or None if not found.
         """
-        return self.cache_data.get(key, None)
+            Retrieve an item from the
+            cache based on the key.
+        """
+
+        if key is None or key not in self.cache_data:
+            return None
+
+        self.lru_order.remove(key)
+        self.lru_order.append(key)
+
+        return self.cache_data[key]
