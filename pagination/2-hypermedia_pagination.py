@@ -43,7 +43,7 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List[Union[str, int]]]:
+    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
             Retrieve a page of data from the dataset.
         """
@@ -59,7 +59,7 @@ class Server:
 
         return dataset[start_index:end_index]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Optional[Union[int, List[List[Union[str, int]]]]]]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """
             Retrieve a page of data with additional pagination information.
         """
