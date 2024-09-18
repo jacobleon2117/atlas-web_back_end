@@ -5,18 +5,23 @@ from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
-    """ LIFO caching system where the last added item is the first to be removed
-        when the cache exceeds its size limit. """
+    """ LIFO caching system where the last added item
+        is the first to be removed
+        when the cache exceeds its size limit.
+    """
 
     def __init__(self):
-        """ Initialize the LIFOCache class with a tracking list 'order' to manage
-            the insertion order of the cache items. """
+        """ Initialize the LIFOCache class with a
+            tracking list 'order' to manage
+            the insertion order of the cache items.
+        """
         super().__init__()
         self.order = []
 
     def put(self, key, item):
-        """ Add an item to the cache. If the cache exceeds the maximum allowed size,
-            it removes the last added item (LIFO). 
+        """ Add an item to the cache. If the cache
+            exceeds the maximum allowed size,
+            it removes the last added item (LIFO).
         """
         if key is None or item is None:
             return
