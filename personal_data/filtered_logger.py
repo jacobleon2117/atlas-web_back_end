@@ -70,19 +70,22 @@ class RedactingFormatter(logging.Formatter):
         return super().format(record)
 
 
-    def get_logger() -> logging.Logger:
-        """
-            Creates and returns a logger
-            named 'user_data' that redacts PII fields.
-        """
-        logger = logging.getLogger("user_data")
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
-
-        stream_handler = logging.StreamHandler()
-        formatter = RedactingFormatter(fields=PII_FIELDS)
-        stream_handler.setFormatter(formatter)
-
-        logger.addHandler(stream_handler)
-
-        return logger
+def get_logger() -> logging.Logger:
+    """
+        Creates and configures a logger named 'user_data'
+        using the RedactingFormatter with PII_FIELDS.
+    """
+    logger = logging.getLogger("user_data")
+    
+    logger.setLevel(logging.INFO)
+    
+    logger.propagate = False
+    
+    handler = logging.StreamHandler()
+    redacting_formatter = RedactingFormatter(PII_FIELDS)
+    handler.setFormatter(redacting_formatter)
+    
+    if not logger.hasHandlers():
+        logger.addHandler(handler)
+    
+    return logger
