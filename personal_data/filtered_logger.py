@@ -53,17 +53,13 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger() -> logging.Logger:
-    """
-        Create and configure a logger instance with RedactingFormatter.
-    """
-    logger = logging.getLogger('user_data')
-    if not logger.hasHandlers():
-        handler = logging.StreamHandler()
-        handler.setFormatter(RedactingFormatter(PII_FIELDS))
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
-    return logger
+    hdlr = logging.StreamHandler()
+    hdlr.setFormatter(RedactingFormatter(PII_FIELDS))
+    user_data = logging.getLogger('user_data')
+    user_data.setLevel(logging.INFO)
+    user_data.addHandler(hdlr)
+    user_data.propagate = False
+    return user_data
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
