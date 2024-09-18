@@ -18,6 +18,7 @@ def index_range(page: int, page_size: int) -> tuple:
     end_index = start_index + page_size
     return (start_index, end_index)
 
+
 class Server:
     """
         Server class to paginate a
@@ -45,9 +46,10 @@ class Server:
         """
             Retrieve a page of data from the dataset.
         """
-        assert isinstance(page, int) and page > 0, "Page must be a positive integer"
-        assert isinstance(page_size, int) and page_size > 0, "Page size must be a positive integer"
-
+        if not (isinstance(page, int) and page > 0):
+            raise AssertionError("Page must be a positive integer")
+        if not (isinstance(page_size, int) and page_size > 0):
+            raise AssertionError("Page size must be a positive integer")
         dataset = self.dataset()
 
         start_index, end_index = index_range(page, page_size)

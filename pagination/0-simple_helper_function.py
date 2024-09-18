@@ -3,6 +3,7 @@
     index_range - module
 """
 
+
 def index_range(page, page_size):
     """
         Return a tuple of start and end index for pagination.
