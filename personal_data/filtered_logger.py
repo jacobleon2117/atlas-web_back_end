@@ -83,6 +83,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def main():
+    """
+        Retrieves all user records from the 'users' table
+        in the database and logs the data with sensitive
+        PII fields redacted.
+    """
     logger = get_logger()
     db = get_db()
     cursor = db.cursor()
