@@ -97,12 +97,12 @@ def main():
         ll = f"last_login={row[6]}; "
         ua = f"user_agent={row[7]}"
         message = f"{nm}{em}{ph}{sn}{pw}{ip}{ll}{ua}"
-        log_record = logging.LogRecord(logger, 
-                                       logging.INFO, 
-                                       None, 
-                                       None, 
+        log_record = logging.LogRecord(logger,
+                                       logging.INFO,
+                                       None,
+                                       None,
                                        message,
-                                       None, 
+                                       None,
                                        None)
         logger.info(log_record.msg)
 
