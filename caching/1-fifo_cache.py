@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" FIFOCache module that inherits from BaseCaching """
+""" FIFOCache - module that inherits from BaseCaching """
 
 from base_caching import BaseCaching
 
