@@ -8,7 +8,7 @@ class FIFOCache(BaseCaching):
     """ FIFOCache implements a caching system using FIFO algorithm """
 
     def __init__(self):
-        """ Initialize the class with an empty cache 
+        """ Initialize the class with an empty cache
         and a queue to track order of keys """
         super().__init__()
         self.queue = []
@@ -36,4 +36,3 @@ class FIFOCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
         return self.cache_data.get(key)
-  
