@@ -43,7 +43,10 @@ class RedactingFormatter(logging.Formatter):
         """
             Format the log record with redacted fields.
         """
-        log = filter_datum(self.FIELDS, self.REDACTION, record.getMessage(), self.SEPARATOR)
+        log = filter_datum(self.FIELDS, 
+                           self.REDACTION, 
+                           record.getMessage(), 
+                           self.SEPARATOR)
         record.msg = log
         return logging.Formatter(self.FORMAT).format(record)
 
