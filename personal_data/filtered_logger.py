@@ -43,9 +43,9 @@ class RedactingFormatter(logging.Formatter):
         """
             Format the log record with redacted fields.
         """
-        log = filter_datum(self.FIELDS, 
-                           self.REDACTION, 
-                           record.getMessage(), 
+        log = filter_datum(self.FIELDS,
+                           self.REDACTION,
+                           record.getMessage(),
                            self.SEPARATOR)
         record.msg = log
         return logging.Formatter(self.FORMAT).format(record)
@@ -97,7 +97,15 @@ def main():
         ll = f"last_login={row[6]}; "
         ua = f"user_agent={row[7]}"
         message = f"{nm}{em}{ph}{sn}{pw}{ip}{ll}{ua}"
-        log_record = logging.LogRecord(logger, logging.INFO, None, None, message, None, None)
+        log_record = logging.LogRecord(logger, 
+                                       logging.INFO, 
+                                       None, 
+                                       None, 
+                                       message,
+                                       None, 
+                                       None)
         logger.info(log_record.msg)
+
+
 if __name__ == '__main__':
     main()
