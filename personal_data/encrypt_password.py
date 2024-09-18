@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+    Password Hashing and Validation Module
+"""
 
 import bcrypt
 
