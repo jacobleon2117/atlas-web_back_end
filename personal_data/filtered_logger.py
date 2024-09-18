@@ -6,7 +6,6 @@
 import re
 from typing import List
 import logging
-from filtered_logger import RedactingFormatter
 
 
 PII_FIELDS = (
@@ -51,7 +50,8 @@ class RedactingFormatter(logging.Formatter):
 
     def __init__(self, fields: List[str]):
         """
-            Initialize the RedactingFormatter with the specified fields to redact.
+            Initialize the RedactingFormatter
+            with the specified fields to redact.
         """
         super().__init__(self.FORMAT)
         self.fields = fields
@@ -69,9 +69,11 @@ class RedactingFormatter(logging.Formatter):
         record.msg = log
         return super().format(record)
 
+
 def get_logger() -> logging.Logger:
     """
-        Creates and returns a logger named 'user_data' that redacts PII fields.
+        Creates and returns a logger
+        named 'user_data' that redacts PII fields.
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
