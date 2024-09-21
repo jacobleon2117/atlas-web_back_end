@@ -98,7 +98,10 @@ def main():
         ph = f"phone={row[2]}; "
         sn = f"ssn={row[3]}; "
         pw = f"password={row[4]}; "
-        message = f"{nm}{em}{ph}{sn}{pw}"
+        ip = f"ip={row[5]}; "
+        ll = f"last_login={row[6]}; "
+        ua = f"user_agent={row[7]}"
+        message = f"{nm}{em}{ph}{sn}{pw}{ip}{ll}{ua}"
         log_record = logging.LogRecord(logger,
                                        logging.INFO,
                                        None,
