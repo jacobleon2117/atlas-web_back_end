@@ -13,18 +13,20 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
 
+# Authentication handling
 auth = None
-auth = os.getenv('AUTH_TYPE')
-if auth == 'basic_auth':
+auth_type = getenv('AUTH_TYPE')  # Get the auth type from the environment
+if auth_type == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-elif auth == 'session_auth':
+elif auth_type == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 else:
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+# Flask app setup
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
@@ -37,24 +39,29 @@ def before_request():
     This function checks if the request path requires authentication
     by evaluating it against a list of public routes. If authentication
     is required and not provided, the request is aborted with:
-    - 401 Unauthorized: if the authorization header is missing.
+    - 401 Unauthorized: if the authorization header or session cookie is missing.
     - 403 Forbidden: if the current user cannot be determined.
 
     The current authenticated user is set in `request.current_user`.
     """
     if auth is None:
         return
-    public_routes = ['/api/v1/status/',
-                     '/api/v1/unauthorized/',
-                     '/api/v1/forbidden/']
+    
+    public_routes = [
+        '/api/v1/status/',
+        '/api/v1/unauthorized/',
+        '/api/v1/forbidden/',
+        '/api/v1/auth_session/login/',
+        '/api/v1/auth_session/logout/'
+    ]
 
-    if request.path not in public_routes:
-        if auth.require_auth(request.path, public_routes):
-            if auth.authorization_header(request) is None:
-                abort(401)
-            request.current_user = auth.current_user(request)
-            if request.current_user is None:
-                abort(403)
+    if auth.require_auth(request.path, public_routes):
+        if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
+            abort(401)  # Unauthorized
+
+        request.current_user = auth.current_user(request)
+        if request.current_user is None:
+            abort(403)  # Forbidden
 
 @app.errorhandler(404)
 def not_found(error) -> str:
