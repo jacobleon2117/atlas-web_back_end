@@ -23,7 +23,8 @@ class Auth:
 
         Args:
             path (str): The requested API endpoint.
-            excluded_paths (List[str]): List of endpoints that do not require authentication.
+            excluded_paths (List[str]): List of endpoints that
+            do not require authentication.
 
         Returns:
             bool: True if authentication is required, False otherwise.
@@ -49,7 +50,8 @@ class Auth:
             request: The incoming request object.
 
         Returns:
-            Optional[str]: The value of the 'Authorization' header, or None if it does not exist.
+            Optional[str]: The value of the 'Authorization'
+            header, or None if it does not exist.
         """
         if request is None:
             return None
@@ -63,6 +65,7 @@ class Auth:
             request: The incoming request object.
 
         Returns:
-            Optional[User]: An instance of the user if authenticated, or None if not.
+            Optional[User]: An instance of the user if
+            authenticated, or None if not.
         """
         return None
