@@ -1,4 +1,4 @@
-# api/v1/auth/basic_auth.py
+#!/usr/bin/env python3
 """
     Basic authorization - module
 """
