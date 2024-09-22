@@ -28,7 +28,9 @@ class BasicAuth(Auth):
             return None
         return authorization_header.split("Basic ")[1]
 
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+    def decode_base64_authorization_header(self,
+                                           base64_authorization_header:
+                                           str) -> str:
         """
             Decodes a Base64 encoded string.
         """
@@ -42,21 +44,28 @@ class BasicAuth(Auth):
         except (base64.binascii.Error, UnicodeDecodeError):
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> Tuple[str, str]:
+    def extract_user_credentials(self,
+                                 decoded_base64_authorization_header:
+                                 str) -> Tuple[str, str]:
         """
-            Extracts the user email and password from the decoded Base64 string.
+            Extracts the user email and password
+            from the decoded Base64 string.
         """
         if decoded_base64_authorization_header is None:
             return None, None
-        if not isinstance(decoded_base64_authorization_header, str):
+        if not isinstance(decoded_base64_authorization_header,
+                         str):
             return None, None
         if ':' not in decoded_base64_authorization_header:
             return None, None
         return tuple(decoded_base64_authorization_header.split(':', 1))
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> User:
+    def user_object_from_credentials(self,
+                                     user_email: str,
+                                     user_pwd: str) -> User:
         """
-            Returns the User instance based on email and password.
+            Returns the User instance
+            based on email and password.
         """
         if not isinstance(user_email, str) or user_email is None:
             return None
