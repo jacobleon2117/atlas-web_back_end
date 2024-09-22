@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-""" 
-    User - module
+""" user - module
 """
 from api.v1.views import app_views
 from api.v1.auth.basic_auth import BasicAuth
@@ -17,25 +16,6 @@ def view_all_users() -> str:
     """
     all_users = [user.to_json() for user in User.all()]
     return jsonify(all_users)
-
-@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
-def view_current_user(user_id: str = None) -> str:
-    """ GET /api/v1/users/me
-    Return:
-      - Current authenticated User object JSON represented
-      - 404 if the User ID doesn't exist or no user is authenticated
-    """
-    if user_id is None:
-        abort(404)
-    if user_id == 'me':
-        if request.current_user is None:
-            return None
-        else:
-            return jsonify(request.current_user.to_json())
-    user = User.get(user_id)
-    if user is None:
-        abort(404)
-    return jsonify(user.to_json())
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
@@ -66,7 +46,7 @@ def delete_user(user_id: str = None) -> str:
     Path parameter:
       - User ID
     Return:
-      - empty JSON if the User has been correctly deleted
+      - empty JSON is the User has been correctly deleted
       - 404 if the User ID doesn't exist
     """
     if user_id is None:
@@ -76,6 +56,7 @@ def delete_user(user_id: str = None) -> str:
         abort(404)
     user.remove()
     return jsonify({}), 200
+
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user() -> str:
@@ -114,6 +95,7 @@ def create_user() -> str:
             error_msg = "Can't create User: {}".format(e)
     return jsonify({'error': error_msg}), 400
 
+
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id: str = None) -> str:
     """ PUT /api/v1/users/:id
@@ -144,4 +126,4 @@ def update_user(user_id: str = None) -> str:
     if rj.get('last_name') is not None:
         user.last_name = rj.get('last_name')
     user.save()
-    return jsonify(user.to_json()), 200 
+    return jsonify(user.to_json()), 200
