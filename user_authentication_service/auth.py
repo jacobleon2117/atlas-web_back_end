@@ -31,7 +31,7 @@ class Auth:
             return self._db.add_user(email, hashed)
 
     def valid_login(self, email: str, password: str) -> bool:
-        """ 
+        """
             login attempt
         """
         try:
@@ -57,7 +57,7 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> User:
-        """ 
+        """
             retrieve session id
         """
 
@@ -99,7 +99,7 @@ class Auth:
 
 
 def _hash_password(password: str) -> bytes:
-    """ 
+    """
         password string
     """
 
@@ -107,7 +107,7 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid() -> str:
-    """ 
+    """
         new UUID
     """
 
