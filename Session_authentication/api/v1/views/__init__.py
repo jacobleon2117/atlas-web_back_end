@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ 
-    load user
+    views - module
 """
 from flask import Blueprint
 
