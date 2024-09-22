@@ -7,17 +7,20 @@
     basic and generic authentication, and integrates with CORS to
     enable cross-origin requests for specified routes.
 """
-import os
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
-from flask_cors import CORS
+from flask_cors import (CORS, cross_origin)
+import os
 
 auth = None
-auth_type = os.getenv('AUTH_TYPE')
-if auth_type == 'basic_auth':
+auth = os.getenv('AUTH_TYPE')
+if auth == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
+elif auth == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
 else:
     from api.v1.auth.auth import Auth
     auth = Auth()
