@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" index - module
+""" Module of Index views
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
@@ -38,4 +38,3 @@ def forbidden():
     """ Forbidden endpoint
     """
     abort(403)
-  
