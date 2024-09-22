@@ -53,7 +53,8 @@ def not_found(error) -> str:
     """
         Handler for 404 Not Found errors.
 
-        Returns a JSON response indicating that the requested resource was not found.
+        Returns a JSON response indicating
+        that the requested resource was not found.
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -63,7 +64,8 @@ def unauthorized(error) -> str:
     """
         Handler for 401 Unauthorized errors.
 
-        Returns a JSON response indicating that the request requires user authentication.
+        Returns a JSON response indicating that
+        the request requires user authentication.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
