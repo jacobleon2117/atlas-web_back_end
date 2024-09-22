@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""DB module
+"""
+    DB module
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -28,7 +29,7 @@ class DB:
     @property
     def _session(self) -> Session:
         """
-            session
+            session object
         """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
@@ -37,11 +38,36 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """
-            new user
+            Add new user
         """
 
         new_user = User(email=email, hashed_password=hashed_password)
+
         self._session.add(new_user)
         self._session.commit()
         self._session.refresh(new_user)
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+            user search method
+        """
+        if len(kwargs) == 1:
+            if list(kwargs.keys())[0] not in User.__dict__:
+                raise InvalidRequestError
+        q = self._session.query(User).filter_by(**kwargs).first()
+        if q is None:
+            raise NoResultFound
+        return q
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+            update selected user with provided arguments
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if key not in User.__dict__:
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
+        return None
