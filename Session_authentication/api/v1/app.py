@@ -55,6 +55,19 @@ def not_found(error) -> str:
     """
     return jsonify({"error": "Not found"}), 404
 
+
+@app_views.route('/stats/', strict_slashes=False)
+def stats() -> str:
+    """ GET /api/v1/stats
+    Return:
+      - the number of each objects
+    """
+    from models.user import User
+    stats = {}
+    stats['users'] = User.count()
+    return jsonify(stats)
+
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """
@@ -63,6 +76,7 @@ def unauthorized(error) -> str:
         Returns a JSON response indicating that the request requires user authentication.
     """
     return jsonify({"error": "Unauthorized"}), 401
+
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
@@ -73,6 +87,7 @@ def forbidden(error) -> str:
         but refuses to authorize it.
     """
     return jsonify({"error": "Forbidden"}), 403
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
