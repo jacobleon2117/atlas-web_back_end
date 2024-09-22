@@ -13,9 +13,8 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
 
-# Authentication handling
 auth = None
-auth_type = getenv('AUTH_TYPE')  # Get the auth type from the environment
+auth_type = getenv('AUTH_TYPE')
 if auth_type == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
@@ -26,116 +25,52 @@ else:
     from api.v1.auth.auth import Auth
     auth = Auth()
 
-# Flask app setup
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 @app.before_request
-def before_request():
+def handle_request():
+    """ handle request authorization
     """
-    Executed before each request to handle authentication.
-    
-    This function checks if the request path requires authentication
-    by evaluating it against a list of public routes. If authentication
-    is required and not provided, the request is aborted with:
-    - 401 Unauthorized: if the authorization header or session cookie is missing.
-    - 403 Forbidden: if the current user cannot be determined.
-
-    The current authenticated user is set in `request.current_user`.
-    """
-    if auth is None:
-        return
-    
-    public_routes = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/',
-        '/api/v1/auth_session/login/',
-        '/api/v1/auth_session/logout/'
-    ]
-
-    if auth.require_auth(request.path, public_routes):
-        if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
-            abort(401)  # Unauthorized
-
+    handled_paths = ['/api/v1/status/',
+                     '/api/v1/unauthorized/',
+                     '/api/v1/forbidden/',
+                     '/api/v1/auth_session/login/']
+    if auth is not None:
         request.current_user = auth.current_user(request)
-        if request.current_user is None:
-            abort(403)  # Forbidden
+        if auth.require_auth(request.path, handled_paths) is True:
+            if (auth.authorization_header(request) is None
+                    and auth.session_cookie(request) is None):
+                abort(401)
+            if request.current_user is None:
+                abort(403)
 
 @app.errorhandler(404)
 def not_found(error) -> str:
     """
     Handles 404 Not Found errors.
-
-    Returns a JSON response indicating that the requested resource
-    was not found.
-
-    Args:
-        error: The error object (automatically passed in by Flask).
-
-    Returns:
-        A JSON response with an error message and a 404 status code.
     """
     return jsonify({"error": "Not found"}), 404
 
-@app_views.route('/stats/', strict_slashes=False)
-def stats() -> str:
-    """
-    GET /api/v1/stats
-
-    Returns the number of users in the system.
-
-    This route provides basic statistics about the system's usage, such as
-    the number of user objects.
-
-    Returns:
-        A JSON response containing the user count.
-    """
-    from models.user import User
-    stats = {}
-    stats['users'] = User.count()
-    return jsonify(stats)
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """
     Handles 401 Unauthorized errors.
-
-    Returns a JSON response indicating that the request requires user
-    authentication.
-
-    Args:
-        error: The error object (automatically passed in by Flask).
-
-    Returns:
-        A JSON response with an error message and a 401 status code.
     """
     return jsonify({"error": "Unauthorized"}), 401
+
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """
-    Handles 403 Forbidden errors.
-
-    Returns a JSON response indicating that the server refuses to
-    authorize the request, even though it understands the request.
-
-    Args:
-        error: The error object (automatically passed in by Flask).
-
-    Returns:
-        A JSON response with an error message and a 403 status code.
+        Forbidden route handler
     """
     return jsonify({"error": "Forbidden"}), 403
 
-if __name__ == "__main__":
-    """
-    Entry point for the Flask application.
 
-    The app will run with the host and port configured through environment
-    variables `API_HOST` and `API_PORT`, defaulting to `0.0.0.0` and `5000`.
-    """
+if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
     app.run(host=host, port=port)
