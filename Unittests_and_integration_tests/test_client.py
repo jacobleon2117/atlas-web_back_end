@@ -24,7 +24,6 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """
         cls.get_patcher = patch('client.requests.get')
         cls.mock_get = cls.get_patcher.start()
-
         cls.mock_get.side_effect = cls.mock_get_side_effect
 
     @classmethod
@@ -57,20 +56,18 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     def test_public_repos(self):
         """
-            Test that GithubOrgClient.public_repos returns the expected repos.
+        Test that GithubOrgClient.public_repos returns the expected repos.
         """
         client = GithubOrgClient("google")
         repos = client.public_repos()
-
         self.assertEqual(repos, self.expected_repos)
 
     def test_apache2_repos(self):
         """
-            Test that public_repos returns the expected repos for Apache2 license.
+        Test that public_repos returns the expected repos for Apache2 license.
         """
         client = GithubOrgClient("apache")
         repos = client.public_repos()
-
         self.assertEqual(repos, self.apache2_repos)
 
 
