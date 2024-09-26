@@ -6,7 +6,9 @@ import unittest
 from unittest.mock import patch
 from parameterized import parameterized_class
 from client import GithubOrgClient
+from unittest.mock import PropertyMock
 from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
+import client
 
 
 @parameterized_class(("org_payload", "repos_payload", "expected_repos", "apache2_repos"), [
@@ -44,23 +46,20 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             return cls.MockResponse(cls.repos_payload)
         raise ValueError("Unmocked URL: {}".format(url))
 
-    class MockResponse:
+    def test_public_repos(self, mock_json):
         """
-            Mock response for requests.get.
+            Test that GithubOrgClient.public_repos returns the expected repos.
         """
-        def __init__(self, json_data):
-            self.json_data = json_data
-
-        def json(self):
-            return self.json_data
-
-    def test_public_repos(self):
-        """
-        Test that GithubOrgClient.public_repos returns the expected repos.
-        """
-        client = GithubOrgClient("google")
-        repos = client.public_repos()
-        self.assertEqual(repos, self.expected_repos)
+        mock_json.return_value = {'payload': 'success'}
+        mock_name = 'client.GithubOrgClient._public_repos_url'
+        with patch(mock_name,
+                   new_callable=PropertyMock) as mock:
+            mock.return_value = 'payload'
+            test_request = client.GithubOrgClient('test')
+            res = {'payload': 'success'}
+            self.assertEqual(test_request.repos_payload, res)
+            mock_json.assert_called_once()
+            mock.assert_called_once()
 
     def test_apache2_repos(self):
         """
