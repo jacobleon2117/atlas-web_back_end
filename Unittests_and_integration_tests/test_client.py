@@ -7,8 +7,7 @@ import unittest
 from unittest.mock import patch, PropertyMock
 from parameterized import parameterized, parameterized_class
 import client
-from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
-
+from fixtures import TEST_PAYLOAD
 
 class TestGithubOrgClient(unittest.TestCase):
     """ Unit tests for the GithubOrgClient class. """
@@ -25,7 +24,6 @@ class TestGithubOrgClient(unittest.TestCase):
         test_request = client.GithubOrgClient(org)
         mock_json.return_value = {"login": org}
         
-        # Access the org property
         self.assertEqual(test_request.org, mock_json.return_value)
         mock_json.assert_called_once_with(f'https://api.github.com/orgs/{org}')
 
@@ -71,8 +69,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
 @parameterized_class(
     ('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
-    [(org_payload, repos_payload, expected_repos, apache2_repos)]
-)
+    [(TEST_PAYLOAD[0], TEST_PAYLOAD[1], TEST_PAYLOAD[3], TEST_PAYLOAD[4])]
+    )
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ Integration tests for the GithubOrgClient class. """
 
