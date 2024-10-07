@@ -7,34 +7,33 @@ from functools import wraps
 
 def count_calls(method: Callable) -> Callable:
     """
-    A decorator that counts the number of times a method is called.
-    It increments the count in Redis each time the method is called.
+    A decorator that increments the call count in Redis each time the method is called.
     """
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         key = method.__qualname__
         self._redis.incr(key)
-        
         return method(self, *args, **kwargs)
     
     return wrapper
 
+
 class Cache:
     """
-    A Cache class that interfaces with Redis to store and retrieve data.
+    A class that provides an interface to store and retrieve data using Redis.
     """
 
     def __init__(self):
         """
-        Initializes a new Cache instance with a Redis client and clears the Redis database.
+        Initializes the Cache with a Redis client and clears the database.
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
-        The data is stored in Redis with the generated key as the identifier. The key is
-        returned so it can be used to retrieve the data later.
+        Stores data in Redis with a UUID key and returns the key.
         """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
@@ -42,23 +41,21 @@ class Cache:
 
     def get(self, key: str, fn: Optional[Callable[[bytes], Union[str, int, float, bytes]]] = None) -> Optional[Union[str, int, float, bytes]]:
         """
-        Retrieves the data stored in Redis for the given key, with an optional transformation function.
+        Retrieves data from Redis for a given key, with optional transformation.
         """
         data = self._redis.get(key)
         if data is None:
             return None
-        if fn:
-            return fn(data)
-        return data
+        return fn(data) if fn else data
 
     def get_str(self, key: str) -> Optional[str]:
         """
-        Retrieves the data as a UTF-8 string for the given key.
+        Retrieves data as a UTF-8 string for a given key.
         """
         return self.get(key, fn=lambda d: d.decode("utf-8"))
 
     def get_int(self, key: str) -> Optional[int]:
         """
-        Retrieves the data as an integer for the given key.
+        Retrieves data as an integer for a given key.
         """
         return self.get(key, fn=int)
