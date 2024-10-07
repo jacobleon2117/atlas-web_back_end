@@ -89,19 +89,21 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self,
-            key: str,
-            fn: Optional[Callable[[bytes],
-            Union[str, int, float, bytes]]] = None
-        ) -> Optional[Union[str, int, float, bytes]]:
+    def get(
+        self,
+        key: str,
+        fn: Optional[Callable[[bytes], Union[str, int, float, bytes]]] = None
+    ) -> Optional[Union[str, int, float, bytes]]:
         """
-        Retrieves data from Redis for a given key,
-        with optional transformation.
+        Retrieves the data stored in Redis for the given key, with an optional transformation function.
         """
         data = self._redis.get(key)
         if data is None:
             return None
-        return fn(data) if fn else data
+        if fn:
+            return fn(data)
+        return data
+
 
     def get_str(self, key: str) -> Optional[str]:
         """
