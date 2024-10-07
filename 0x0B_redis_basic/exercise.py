@@ -79,7 +79,8 @@ class Cache:
 
     @count_calls
     @call_history
-    def store(self, data: Union[str, bytes, int, float]) -> str:
+    def store(self, 
+              data: Union[str, bytes, int, float]) -> str:
         """
         Stores data in Redis with a UUID key
         and returns the key.
@@ -90,7 +91,7 @@ class Cache:
 
     def get(self, key: str, fn: Optional[Callable[[bytes], Union[str, int, float, bytes]]] = None) -> Optional[Union[str, int, float, bytes]]:
         """
-        Retrieves data from Redis for a given key, 
+        Retrieves data from Redis for a given key,
         with optional transformation.
         """
         data = self._redis.get(key)
