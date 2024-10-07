@@ -95,7 +95,8 @@ class Cache:
         fn: Optional[Callable[[bytes], Union[str, int, float, bytes]]] = None
     ) -> Optional[Union[str, int, float, bytes]]:
         """
-        Retrieves the data stored in Redis for the given key, with an optional transformation function.
+        Retrieves the data stored in Redis for the given key,
+        with an optional transformation function.
         """
         data = self._redis.get(key)
         if data is None:
@@ -103,7 +104,6 @@ class Cache:
         if fn:
             return fn(data)
         return data
-
 
     def get_str(self, key: str) -> Optional[str]:
         """
