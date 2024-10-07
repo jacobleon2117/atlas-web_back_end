@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
+"""
+    Redis Basic: module
+"""
 import redis
 import uuid
 from typing import Union, Optional, Callable
 from functools import wraps
+
 
 def count_calls(method: Callable) -> Callable:
     """
