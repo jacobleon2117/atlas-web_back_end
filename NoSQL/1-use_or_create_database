@@ -1,3 +1,6 @@
-// Use or create the database my_db
-const db = connect('localhost/my_db');
-print('switched to db my_db');
+// Use or create a database named my_db
+const dbName = "my_db";
+const db = db.getSiblingDB(dbName);
+
+// Print a message confirming the switch
+print(`switched to db ${dbName}`);
