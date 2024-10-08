@@ -1,0 +1,6 @@
+// Show the DB
+const databases = db.adminCommand('listDatabases');
+
+databases.databases.forEach(database => {
+    print(database.name + ' ' + (database.sizeOnDisk / (1024 * 1024)).toFixed(3) + 'MB');
+});
