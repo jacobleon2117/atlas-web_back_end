@@ -1,6 +1,2 @@
 // Use or create a database named my_db
-const dbName = "my_db";
-const db = db.getSiblingDB(dbName);
-
-// Print a message confirming the switch
-print(`switched to db ${dbName}`);
+use my_db
