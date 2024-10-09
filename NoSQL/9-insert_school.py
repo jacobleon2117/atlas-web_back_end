@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+"""
+    Insert module
+"""
 
 from pymongo import MongoClient
+
 
 def insert_school(mongo_collection, **kwargs):
     """
