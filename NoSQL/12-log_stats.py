@@ -3,8 +3,9 @@
 log module
 """
 
-from pymongo import MongoClient
 
+from pymongo import MongoClient
+import sys
 
 def log_stats():
     """
@@ -18,21 +19,24 @@ def log_stats():
     Usage:
         Call this function to output log statistics to the console.
     """
-    client = MongoClient()
-    db = client.logs
-    collection = db.nginx
+    try:
+        client = MongoClient()
+        db = client.logs
+        collection = db.nginx
 
-    total_logs = collection.count_documents({})
-    print(f"{total_logs} logs")
-    
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    print("Methods:")
-    for method in methods:
-        count = collection.count_documents({"method": method})
-        print(f"\tmethod {method}: {count}")
-    
-    status_check_count = collection.count_documents({"method": "GET", "path": "/status"})
-    print(f"{status_check_count} status check")
+        total_logs = collection.count_documents({})
+        print(f"{total_logs} logs")
+        
+        methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        print("Methods:")
+        for method in methods:
+            count = collection.count_documents({"method": method})
+            print(f"\tmethod {method}: {count}")
+        
+        status_check_count = collection.count_documents({"method": "GET", "path": "/status"})
+        print(f"{status_check_count} status check")
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
     log_stats()
