@@ -7,6 +7,10 @@ from pymongo import MongoClient
 
 
 def log_stats():
+    """
+    Connects to the MongoDB database and retrieves statistics from the 'nginx' 
+    collection of the 'logs' database. It prints the following information:
+    """
     client = MongoClient()
     db = client.logs
     collection = db.nginx

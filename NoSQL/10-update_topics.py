@@ -6,9 +6,11 @@
 from pymongo import MongoClient
 
 
-def insert_school(mongo_collection, **kwargs):
+def update_topics(mongo_collection, topic, name):
     """
-    Inserts a new document into a MongoDB collection based on keyword arguments.
+    Updates the topics of a school in a MongoDB collection.
     """
-    result = mongo_collection.insert_one(kwargs)
-    return result.inserted_id
+    mongo_collection.update_many(
+        {"name": name},
+        {"$set": {"topic": topic}}
+    )
