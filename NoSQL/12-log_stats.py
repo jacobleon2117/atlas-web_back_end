@@ -10,6 +10,13 @@ def log_stats():
     """
     Connects to the MongoDB database and retrieves statistics from the 'nginx' 
     collection of the 'logs' database. It prints the following information:
+    
+    1. Total number of logs.
+    2. Count of logs for each specified HTTP method (GET, POST, PUT, PATCH, DELETE).
+    3. Count of status check requests (GET requests to the path '/status').
+
+    Usage:
+        Call this function to output log statistics to the console.
     """
     client = MongoClient()
     db = client.logs
