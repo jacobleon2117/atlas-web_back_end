@@ -1,0 +1,14 @@
+{
+    "name": "atlas-web_back_end",
+    "version": "1.0.0",
+    "description": "API Server for Atlas Web",
+    "main": "api.js",
+    "scripts": {
+      "test": "./node_modules/mocha/bin/mocha"
+    },
+    "dependencies": {
+      "express": "^4.17.1"
+    },
+    "devDependencies": {}
+  }
+  
