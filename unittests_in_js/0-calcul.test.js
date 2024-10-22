@@ -1,4 +1,3 @@
-// 0-calcul.test.js
 const assert = require('assert');
 const calculateNumber = require('./0-calcul');
 
@@ -7,7 +6,7 @@ describe('calculateNumber', () => {
         assert.strictEqual(calculateNumber(1.4, 2.6), 4);
     });
 
-    it('should return 4 when inputs are 1.5 and 2.4', () => { // Updated expected value
+    it('should return 4 when inputs are 1.5 and 2.4', () => {
         assert.strictEqual(calculateNumber(1.5, 2.4), 4);
     });
 
