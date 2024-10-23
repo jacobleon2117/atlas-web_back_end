@@ -2,28 +2,24 @@
 node_modules/
 
 # Logs
-logs
 *.log
-npm-debug.log*
+
+# Build output
+/dist
+/build
 
 # Environment variables
 .env
-
-# Build output
-dist/
-build/
-
-# Babel cache
-.cache/
 
 # OS-specific files
 .DS_Store
 Thumbs.db
 
-# IDE and editor files
-.vscode/
+# IDE-specific files
 .idea/
-*.swp
+*.sublime-workspace
+*.sublime-project
 
-# Coverage
+# Miscellaneous
 coverage/
+.npm/
