@@ -17,6 +17,5 @@
   "devDependencies": {
     "chai": "^5.1.2",
     "mocha": "^10.7.3"
-  },
-  "type": "module"
+  }
 }
