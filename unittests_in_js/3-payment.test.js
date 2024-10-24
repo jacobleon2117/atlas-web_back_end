@@ -12,7 +12,7 @@ describe('sendPaymentRequestToApi', () => {
         sinon.restore();
     });
 
-    it('should match math of sendPaymentRequest and calculateNumber', () => {
+    it('match math of sendPaymentRequest and calculateNumber', () => {
         sendPaymentRequestToApi(100, 20);
         assert(Utils.calculateNumber.calledOnce);
     });
