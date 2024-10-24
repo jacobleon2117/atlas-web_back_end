@@ -1,6 +1,9 @@
-import Utils from './utils.js';
+const Utils = require('./utils');
 
-export function sendPaymentRequestToApi(totalAmount, totalShipping) {
-    const result = Utils.calculateNumber('SUM', totalAmount, totalShipping);
-    console.log(`The total is: ${result}`);
+function sendPaymentRequestToApi(totalAmount, totalShipping) {
+    const total = Utils.calculateNumber('SUM', totalAmount, totalShipping);
+    console.log(`The total is: ${total}`);
+    return total;
 }
+
+module.exports = sendPaymentRequestToApi;

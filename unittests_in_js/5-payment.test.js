@@ -1,32 +1,24 @@
-import { sendPaymentRequestToApi } from './5-payment.js';
-import Utils from './utils.js';
-import sinon from 'sinon';
-import chai from 'chai';
-
-const { expect } = chai;
+const sinon = require('sinon');
+const sendPaymentRequestToApi = require('./4-payment.js');
+const Utils = require('./utils.js');
+const { assert } = require('chai');
 
 describe('sendPaymentRequestToApi', () => {
-    let consoleSpy;
-
-    beforeEach(() => {
-        consoleSpy = sinon.spy(console, 'log');
+    let spy = null;
+    beforeEach(function() {
+        spy = sinon.spy(console, 'log')
     });
 
-    afterEach(() => {
-        consoleSpy.restore();
+    afterEach(function() {
+        sinon.restore();
     });
 
-    it('should log the correct message when called with 100 and 20', () => {
+    it('call sendPaymentRequestToApi with 100 and 20', () => {
         sendPaymentRequestToApi(100, 20);
-
-        expect(consoleSpy.calledOnce).to.be.true;
-        expect(consoleSpy.calledWith('The total is: 120')).to.be.true;
+        assert(spy.calledWith('The total is: 120'));
     });
-
-    it('should log the correct message when called with 10 and 10', () => {
+    it('call sendPaymentRequestToApi with 10 and 10', () => {
         sendPaymentRequestToApi(10, 10);
-
-        expect(consoleSpy.calledOnce).to.be.true;
-        expect(consoleSpy.calledWith('The total is: 20')).to.be.true;
+        assert(spy.calledWith('The total is: 20'));
     });
 });
