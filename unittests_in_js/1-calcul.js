@@ -11,7 +11,7 @@ const calculateNumber = (type, a, b) => {
             if (roundedB === 0) {
                 return 'Error';
             }
-            return (roundedA / roundedB);
+            return Math.round(roundedA / roundedB);
         default:
             throw new Error('Invalid operation type');
     }
