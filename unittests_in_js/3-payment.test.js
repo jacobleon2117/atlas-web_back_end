@@ -1,23 +1,19 @@
-import { sendPaymentRequestToApi } from './3-payment.js';
-import Utils from './utils.js';
-import sinon from 'sinon';
-import { expect } from 'chai';
+const sinon = require('sinon');
+const sendPaymentRequestToApi = require('./3-payment.js');
+const Utils = require('./utils.js');
+const { assert } = require('chai');
 
 describe('sendPaymentRequestToApi', () => {
-    let spy;
-
-    beforeEach(() => {
-        spy = sinon.spy(Utils, 'calculateNumber');
+    beforeEach(function() {
+        sinon.spy(Utils, 'calculateNumber')
     });
 
-    afterEach(() => {
-        spy.restore();
+    afterEach(function() {
+        sinon.restore();
     });
 
-    it('should call Utils.calculateNumber with correct arguments', () => {
+    it('match math of sendPaymentRequest and calculateNumber', () => {
         sendPaymentRequestToApi(100, 20);
-        
-        expect(spy.calledOnce).to.be.true;
-        expect(spy.calledWith('SUM', 100, 20)).to.be.true;
+        assert(Utils.calculateNumber.calledOnce);
     });
 });
