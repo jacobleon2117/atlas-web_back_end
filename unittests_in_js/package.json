@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chai": "^4.2.0",
     "sinon": "^19.0.2"
-  }
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^10.7.3"
+  },
+  "type": "module"
 }
